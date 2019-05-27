@@ -52,6 +52,19 @@ class Sets {
     if (rank[px] == rank[py]) {
       rank[py]++;
     }
+
+    void offline_min(int m) {
+        //m is the current operation
+        //n is the number of elements
+        for (int i = 0; i < num_nodes; i++) {
+            int j = find(i);
+            if (j != m+1) {
+                cout << j << endl;
+                merge(find(l), j);
+            }
+        }
+
+    }
   }
 
   /**
@@ -78,10 +91,11 @@ int main(void) {
   for (int i = 0; i < n; i++) {
     s.create(i);
   }
-  s.merge(0, 1);
-  s.merge(8, 9);
-  s.merge(0, 2);
-  assert(!s.connected(5, 2));
+  //s.merge(0, 1);
+  //s.merge(8, 9);
+  //s.merge(0, 2);
+  //assert(!s.connected(5, 2));
+  
   cout << s << endl;
 
 }
