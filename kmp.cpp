@@ -9,18 +9,21 @@ class Kmp {
     vector<int> pi;
     int found;
 
+    /** Computes string matching problem in O(m) preprocessing on the length of 
+     * the prefix, and O(n) where n is the length of the string.
+     *
+     * The intuition is that we want to create a sort of finite automata looking
+     * thing that backtracks to the last viable spot, if a mismatch occurs
+     * between the prefix and matching string.
+     */
     Kmp(string a, string b): p(a), s(b), pi(p.length()) {
       compute_prefix();
       found = find();
     };
 
     /**
-     * Construct pi array, index notes the location to backtrack to upon 
-     * mismatch occurs.
-     * Iterate through the entire string (fast).
-     * If p[slow] != p[fast], backtrack slow to the first instance.
-     * Increment slow if there is a repetition.
-     * Save slow to p[fast]
+     * Construct preprocessing array pi. Iterate through the prefix.
+     * Notes the location to backtrack to when a mismatch occurs.
      * Page 1006.
      */
     void compute_prefix() {
@@ -33,7 +36,8 @@ class Kmp {
 
     /**
      * Find prefix in substring. If not found, return -1.
-     * Iterate through the entire string (fast).
+     *
+     * Iterate through the entire string p[fast].
      * If p[slow] != s[fast], backtrack slow to the first instance.
      * Increment slow if there is a match.
      * If we hit the first instance, return index.
